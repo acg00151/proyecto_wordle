@@ -9,6 +9,9 @@ class WordleMenuPrincipal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titulo = 'Wordle';
+    final double anchoBotones = 350;
+    final double altoBotones = 40;
+    final double altoSeparacion = 20;
 
     return MaterialApp(
       title: titulo,
@@ -16,57 +19,75 @@ class WordleMenuPrincipal extends StatelessWidget {
       darkTheme: WordleTema.oscuro(),
       themeMode: ThemeMode.system,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(titulo),
-        ),
         body: Container(
-
           width: double.infinity,
           height: 600,
-          margin: const EdgeInsets.only(bottom: 10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              //Image.asset("assets/image-name"),
               Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                height: 80,
-                width: 350,
-                child: ElevatedButton(
-
-                  child: Text('Iniciar partida'),
-                  onPressed: () {
-                    // Respond to button press
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WordlePartidaPantalla()),
-                    );
-                  },
+                child: Transform.translate(
+                  offset: Offset(0, -50),
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    child: Image.asset('assets/Wordle.png'),
+                  ),
                 ),
               ),
-              ElevatedButton(
-                child: Text('Opciones'),
-                onPressed: () {
-                  // Respond to button press
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WordleOpcionesPantalla()),
-                  );
-                },
-              ),
-              ElevatedButton(
-                child: Text('Rankings'),
-                onPressed: () {
-                  // Respond to button press
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WordleRankingPantalla()),
-                  );
-                },
+              Column(
+                children: [
+                  SizedBox(
+                    width: anchoBotones,
+                    height: altoBotones,
+                    child: ElevatedButton(
+                      child: Text('Iniciar partida'),
+                      onPressed: () {
+                        // Respond to button press
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WordleRankingPantalla()),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: altoSeparacion),
+                  SizedBox(
+                    width: anchoBotones,
+                    height: altoBotones,
+                    child: ElevatedButton(
+                      child: Text('Puntuaciones'),
+                      onPressed: () {
+                        // Respond to button press
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const WordleRankingPantalla()),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: altoSeparacion),
+                  SizedBox(
+                    width: anchoBotones,
+                    height: altoBotones,
+                    child: ElevatedButton(
+                      child: Text('Opciones'),
+                      onPressed: () {
+                        // Respond to button press
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const WordleOpcionesPantalla()),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
