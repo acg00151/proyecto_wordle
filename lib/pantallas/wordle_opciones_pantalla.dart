@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:proyecto_wordle/componentes/wordle_tema.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WordleOpcionesPantalla extends StatefulWidget {
   const WordleOpcionesPantalla({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
   static const keyLanguage = 'key-language';
   static const keyTemaOscuro = 'key-Tema-Oscuro';
   static const keyLongitud = '4';
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +59,35 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
           1: 'Español',
           2: 'Ingles',
           3: 'Aleman',
+          4: 'Frances',
         },
-        onChange: (language) {  debugPrint('Se ha cambiado el idioma a: $language');},
+        onChange: (language) async {
+          debugPrint('Se ha cambiado el idioma a: $language');
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setInt('idioma', language);
+        },
       );
 
   Widget buildLongitud() => SliderSettingsTile(
-    title: 'Longitud de las palabras',
-    settingKey: keyLongitud,
- defaultValue: 4,
-    min: 4,
-    max: 6,
-    step: 1,
-    onChange: (value) {
-      debugPrint('Se ha cambiado la longitud a: $value');
-    },
-  );
+        title: 'Longitud de las palabras',
+        settingKey: keyLongitud,
+        defaultValue: 4,
+        min: 4,
+        max: 6,
+        step: 1,
+        onChange: (value) async {
+          debugPrint('Se ha cambiado la longitud a: $value');
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setInt('longitud', value.round());
+        },
+      );
 
   Widget buildTemaOscuro() => SwitchSettingsTile(
-      title: 'Tema Oscuro',
-      settingKey: keyTemaOscuro,
-    onChange: (_){},
-  );
+        title: 'Tema Oscuro',
+        settingKey: keyTemaOscuro,
+        onChange: (value) async {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('TemaOscuro', value);
+        },
+      );
 }

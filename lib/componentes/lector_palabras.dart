@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
-import 'package:flutter/material.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:proyecto_wordle/modelo/puntuacion.dart';
 
@@ -30,6 +30,9 @@ Future<List<File>> get _ficherosCSV async {
   aux.add(File('$path/assets/csv/ALE4.csv'));
   aux.add(File('$path/assets/csv/ALE5.csv'));
   aux.add(File('$path/assets/csv/ALE56.csv'));
+  aux.add(File('$path/assets/csv/FRN4.csv'));
+  aux.add(File('$path/assets/csv/FRN5.csv'));
+  aux.add(File('$path/assets/csv/FRN6.csv'));
   return aux;
 }
 
