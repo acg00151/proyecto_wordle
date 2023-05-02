@@ -132,10 +132,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: "927573f2e8a8d65c17931e21918ad0ab0666b1b636537de7c4932bdb487b190f"
+      sha256: "6b6f10f0ce3c42f6552d1c70d2c28d764cf22bb487f50f66cca31dcd5194f4d6"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.3"
+    version: "4.0.4"
   http:
     dependency: transitive
     description:
@@ -220,10 +220,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "019f18c9c10ae370b08dce1f3e3b73bc9f58e7f087bb5e921f06529438ac0ae7"
+      sha256: "2cec049d282c7f13c594b4a73976b0b4f2d7a1838a6dd5aaf7bd9719196bee86"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.24"
+    version: "2.0.27"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -252,10 +252,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: f53720498d5a543f9607db4b0e997c4b5438884de25b0f73098cc2671a51b130
+      sha256: d3f80b32e83ec208ac95253e0cd4d298e104fbc63cb29c5c69edaed43b0c69d6
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.5"
+    version: "2.1.6"
   pedantic:
     dependency: transitive
     description:
@@ -297,7 +297,7 @@ packages:
     source: hosted
     version: "5.0.0"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"
@@ -308,10 +308,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "5d7b3bd0400bdd0c03e59a3d3d5314651141a145b58196cd9018b12a2adc0c1b"
+      sha256: "6478c6bbbecfe9aced34c483171e90d7c078f5883558b30ec3163cf18402c749"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -425,10 +425,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: a6f0236dbda0f63aa9a25ad1ff9a9d8a4eaaa5012da0dc59d21afdb1dc361ca4
+      sha256: dd8f9344bc305ae2923e3d11a2a911d9a4e2c7dd6fe0ed10626d63211a69676e
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.4"
+    version: "4.1.3"
   xdg_directories:
     dependency: transitive
     description:

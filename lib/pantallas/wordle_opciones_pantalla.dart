@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:proyecto_wordle/componentes/lista_palabras.dart';
 import 'package:proyecto_wordle/componentes/wordle_tema.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +15,6 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
   static const keyLanguage = 'key-language';
   static const keyTemaOscuro = 'key-Tema-Oscuro';
   static const keyLongitud = '4';
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,15 +56,23 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
         settingKey: keyLanguage,
         selected: 1,
         values: <int, String>{
-          1: 'Español',
-          2: 'Ingles',
-          3: 'Aleman',
-          4: 'Frances',
+          0: 'Español',
+          1: 'Ingles',
+          2: 'Aleman',
+          3: 'Frances',
         },
         onChange: (language) async {
           debugPrint('Se ha cambiado el idioma a: $language');
           final prefs = await SharedPreferences.getInstance();
           prefs.setInt('idioma', language);
+
+          ListaPalabras p = ListaPalabras();
+          await p.llenarLista();
+
+          for (int i = 0; i < 10; i++) {
+            debugPrint('Se ha generado la palabra:' + await p.generarPalabra());
+          }
+          ;
         },
       );
 
