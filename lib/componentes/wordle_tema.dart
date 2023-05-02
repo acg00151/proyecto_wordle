@@ -77,12 +77,12 @@ class WordleTema {
         splashColor: Colors.grey,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xff6200EE),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               textStyle: const TextStyle(fontSize: 30),
-              backgroundColor: Colors.blue,
+              backgroundColor: Color(0xff6200EE),
               side: BorderSide(color: Colors.black, width: 2.5))),
       textTheme: temaTextoClaro,
     );
@@ -108,12 +108,12 @@ class WordleTema {
         splashColor: Colors.grey,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xff6200EE),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               textStyle: const TextStyle(fontSize: 30),
-              backgroundColor: Colors.orange,
+              backgroundColor: Color(0xffBB86FC),
 
               side: BorderSide(color: Colors.white, width: 2.5))),
       textTheme: temaTextoOscuro,
