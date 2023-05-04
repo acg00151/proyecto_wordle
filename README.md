@@ -1,16 +1,10 @@
 # proyecto_wordle
 
-A new Flutter project.
+Proyecto en Flutter para la Asignatura DSDM 2023
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Este proyecto es una version del juego Wordle para movil que permite elegir 
+entre diferentes idiomas y longiudesd e palabras
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+NOTA para ejecutar necesita pasar por Additional run arguments  --no-sound-null-safety 
