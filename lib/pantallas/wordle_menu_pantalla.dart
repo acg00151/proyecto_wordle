@@ -15,7 +15,9 @@ class WordleMenuPrincipal extends StatelessWidget {
 
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
+
       title: titulo,
+      debugShowCheckedModeBanner: false,
       theme: WordleTema.claro(),
       darkTheme: WordleTema.oscuro(),
       themeMode: ThemeMode.system,

@@ -188,7 +188,7 @@ class _WordlePartidaState extends State<WordlePartida> {
                     children: [
                       WillPopScope(child: Column(), onWillPop: _onWillPop),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(top:20.0,left: 8.0,right: 8.0),
                         child: ElevatedButton(
                           onPressed: () {
                             setState(() {

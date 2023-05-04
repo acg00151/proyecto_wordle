@@ -8,6 +8,7 @@ Future<void> main() async {
 
   await Settings.init(cacheProvider: SharePreferenceCache());
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
   runApp(const WordleApp());
 }
 

@@ -6,6 +6,7 @@ class WordleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
+
         home: WordleMenuPrincipal(),
       );
 }
