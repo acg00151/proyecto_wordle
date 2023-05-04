@@ -15,9 +15,11 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
   static const keyLanguage = 'key-language';
   static const keyTemaOscuro = 'key-Tema-Oscuro';
   static const keyLongitud = '4';
+  ListaPalabras p = ListaPalabras();
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: "Opciones",
       theme: WordleTema.claro(),
@@ -38,12 +40,12 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
                   buildLongitud(),
                 ],
               ),
-              SettingsGroup(
+              /*   SettingsGroup(
                 title: 'Tema ',
                 children: <Widget>[
                   buildTemaOscuro(),
                 ],
-              ),
+              ),*/
             ],
           ),
         ),
@@ -55,7 +57,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
         title: 'Idioma de las palabras',
         settingKey: keyLanguage,
         selected: 1,
-        values: <int, String>{
+        values: const <int, String>{
           0: 'Español',
           1: 'Ingles',
           2: 'Aleman',
@@ -66,13 +68,9 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
           final prefs = await SharedPreferences.getInstance();
           prefs.setInt('idioma', language);
 
-          ListaPalabras p = ListaPalabras();
-          await p.llenarLista();
-
           for (int i = 0; i < 10; i++) {
             debugPrint('Se ha generado la palabra:' + await p.generarPalabra());
           }
-          ;
         },
       );
 

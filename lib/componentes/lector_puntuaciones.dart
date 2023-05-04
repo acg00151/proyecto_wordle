@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:proyecto_wordle/modelo/puntuacion.dart';
+import 'package:proyecto_wordle/modelo/ranking.dart';
 
-Future<String> get _localPath async {
-  final directory = await getApplicationDocumentsDirectory();
-
-  return directory.path;
+String ficheroCSV() {
+  return ('assets/records.csv');
 }
 
 Future<File> get _localFile async {
-  final path = await _localPath;
-  return File('$path/assets/fichero');
+  return File(ficheroCSV());
 }
 
 Future<File> GuardarPuntuacion(Puntuacion p) async {
@@ -23,16 +23,31 @@ Future<File> GuardarPuntuacion(Puntuacion p) async {
   return file.writeAsString(p.toCSV());
 }
 
-Future<String> cargarPuntuacion() async {
+Future<File> GuardarPuntuaciones(Ranking r) async {
+  final file = await _localFile;
+
+  // Write the file
+  for (int i = 0; i < r.puntuaciones.length; ++i) {
+    file.writeAsString("\n" + r.puntuaciones.elementAt(i).toCSV());
+  }
+  return file;
+}
+
+Future<List<List<String>>> cargarPuntuacion() async {
+  List<List<String>> aux2 = [];
   try {
-    final file = await _localFile;
-
     // Read the file
-    final contents = await file.readAsString();
 
-    return contents.toString();
+    debugPrint('Leyendo el fichero CSV  de puntuaciones');
+    String contents = await rootBundle.loadString(ficheroCSV());
+    List<String> listaAux = contents.split('\n');
+
+    for (int i = 0; i < listaAux.length-1; ++i) {
+      aux2.add(listaAux.elementAt(i).split(','));
+    }
   } catch (e) {
     // If encountering an error, return 0
-    return "";
+    return aux2;
   }
+  return aux2;
 }

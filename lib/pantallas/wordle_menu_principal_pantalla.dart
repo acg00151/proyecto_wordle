@@ -4,7 +4,6 @@ import 'package:proyecto_wordle/pantallas/pantallas.dart';
 import 'package:proyecto_wordle/componentes/iconos.dart';
 
 class WordleMenuPrincipal extends StatefulWidget {
-
   const WordleMenuPrincipal({Key? key}) : super(key: key);
 
   @override
@@ -19,9 +18,7 @@ class _WordleMenuPrincipalState extends State<WordleMenuPrincipal> {
     final double altoBotones = 40;
     final double altoSeparacion = 20;
 
-
-    return  MaterialApp(
-
+    return MaterialApp(
       title: titulo,
       theme: WordleTema.claro(),
       darkTheme: WordleTema.oscuro(),
@@ -73,7 +70,7 @@ class _WordleMenuPrincipalState extends State<WordleMenuPrincipal> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                              const WordleRankingPantalla()),
+                                  const WordleRankingPantalla()),
                         );
                       },
                     ),
@@ -90,7 +87,7 @@ class _WordleMenuPrincipalState extends State<WordleMenuPrincipal> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                              const WordleOpcionesPantalla()),
+                                  const WordleOpcionesPantalla()),
                         );
                       },
                     ),
@@ -112,6 +109,5 @@ class _WordleMenuPrincipalState extends State<WordleMenuPrincipal> {
         ),
       ),
     );
-
   }
 }

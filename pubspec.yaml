@@ -65,6 +65,7 @@ flutter:
     - assets/Wordle.png
     - assets/csv/ESP4.csv
     - assets/csv/
+    - assets/records.csv
 
   # To add assets to your application, add an assets section, like this:
   # assets:

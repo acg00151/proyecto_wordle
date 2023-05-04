@@ -4,7 +4,6 @@ import 'package:proyecto_wordle/wordle_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Settings.init(cacheProvider: SharePreferenceCache());
@@ -13,10 +12,9 @@ Future<void> main() async {
 }
 
 Future<void> comprobarPreferencias() async {
-
   final prefs = await SharedPreferences.getInstance();
 
-   if(prefs.getString('TemaOscuro')!= null ){
-     prefs.setString('TemaOscuro', 'ThemeMode.system');
-   }
+  if (prefs.getString('TemaOscuro') != null) {
+    prefs.setString('TemaOscuro', 'ThemeMode.system');
+  }
 }

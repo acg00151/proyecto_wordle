@@ -15,7 +15,6 @@ class WordleMenuPrincipal extends StatelessWidget {
 
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
-
       title: titulo,
       theme: WordleTema.claro(),
       darkTheme: WordleTema.oscuro(),
@@ -106,6 +105,5 @@ class WordleMenuPrincipal extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
