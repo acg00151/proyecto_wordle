@@ -49,7 +49,7 @@ Future<List<List<String>>> cargarPuntuacion() async {
     debugPrint('Leyendo el fichero CSV  de puntuaciones');
     List<String> listaAux = contents.split('\n');
 
-    for (int i = 0; i < listaAux.length-1; ++i) {
+    for (int i = 0; i < listaAux.length; ++i) {
       aux2.add(listaAux.elementAt(i).split(','));
     }
   } catch (e) {
