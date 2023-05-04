@@ -49,7 +49,7 @@ class WordleMenuPrincipal extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WordleRankingPantalla()),
+                              builder: (context) => WordlePartida()),
                         );
                       },
                     ),

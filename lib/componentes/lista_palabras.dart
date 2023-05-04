@@ -7,14 +7,14 @@ import 'lector_palabras.dart';
 class ListaPalabras {
 
   ListaPalabras(){
-    llenarLista();
+    //llenarLista();
   }
 
 
   List<List<String>> listaP =
       []; //new List<List<String>>.filled(11,List<String>.filled(0, 'a',growable: true));
 
-  void llenarLista() async {
+  Future<void> llenarLista() async {
     List<List<String>> aux2 = await cargarPalabras();
     for (int i = 0; i < aux2.length; ++i) {
       listaP.add(aux2.elementAt(i));

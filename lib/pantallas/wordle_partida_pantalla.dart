@@ -1,29 +1,279 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_wordle/componentes/wordle_tema.dart';
+import 'dart:async';
+import 'dart:math';
 
-class WordlePartidaPantalla extends StatelessWidget {
-  const WordlePartidaPantalla({Key? key}) : super(key: key);
+import 'package:proyecto_wordle/componentes/lista_palabras.dart';
+
+class WordlePartida extends StatefulWidget {
+
+
+
+  @override
+  _WordlePartidaState createState() => _WordlePartidaState();
+}
+
+class _WordlePartidaState extends State<WordlePartida> {
+
+  ListaPalabras p =  ListaPalabras();
+  String palabraAdivinar = "";
+
+  List<Color> colores = [
+    Color.fromARGB(255, 98, 0, 238),
+    Color.fromARGB(255, 3, 218, 198),
+    Colors.grey,
+    Colors.white];
+
+  String tema = "oscuro";
+
+
+  int intentos = 8;
+  int intentosUsados = 0;
+  int intentosRestantes = 0;
+  String palabraIntroducida = "";
+  List<int> bufferColores = [];
+  List<String> bufferLetras = [];
+  bool victoria = false;
+  bool derrota = false;
+
+  final _textController = TextEditingController();
+  String _inputText = '';
+
+  Stopwatch stopwatch = Stopwatch();
+  String elapsedTime = '';
+
+  String puntuacion = "";
+
+  final myTextStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic,
+    letterSpacing: 1.5,
+    wordSpacing: 3.0,
+    shadows: [
+      Shadow(
+        color: Colors.grey,
+        blurRadius: 2.0,
+        offset: Offset(1.0, 1.0),
+      ),
+    ],
+  );
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('¿Abandonas la partida?'),
+            content: Text('Esto eliminará todo el progreso'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text('Sí'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Partida ",
-      theme: WordleTema.claro(),
-      darkTheme: WordleTema.oscuro(),
-      themeMode: ThemeMode.system,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Partida'),
+    inicio();
+    intentosRestantes = intentos - intentosUsados;
+
+    if (victoria) {
+      stopwatch.stop();
+      calculoTiempo();
+      calculoPuntuacion();
+      return Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("¡HAS GANADO!", style: myTextStyle),
+            Text("La palabra era: $palabraAdivinar", style: myTextStyle),
+            SizedBox(
+              height: 5,
+            ),
+            Text("Has tardado $elapsedTime segundos", style: myTextStyle),
+            Text("Puntuacion: $puntuacion", style: myTextStyle),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Volver'),
+            )
+          ],
         ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Go back!'),
-          ),
+      );
+    }
+    if (derrota) {
+      stopwatch.stop();
+      return Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Has perdido", style: myTextStyle),
+            Text("La palabra era: $palabraAdivinar", style: myTextStyle),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Volver'),
+            )
+          ],
         ),
-      ),
+      );
+    }
+    return FutureBuilder(
+      future: p.llenarLista(),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('No se puede conectar con el servidor'),
+            );
+          } else {
+            return Scaffold(
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  WillPopScope(child: Column(), onWillPop: _onWillPop),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _inputText = _textController.text;
+                          intento();
+                        });
+                      },
+                      child: Text('Intentos: $intentosRestantes'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.count(
+                        crossAxisCount: palabraAdivinar.length,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
+                        padding: EdgeInsets.all(8.0),
+                        children: List.generate(
+                          bufferLetras.length,
+                              (index) => Container(
+                            decoration: BoxDecoration(
+                              color: colores[bufferColores[index]],
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(bufferLetras[index]),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Palabra',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        } else {
+          return const Center(child: CircularProgressIndicator(),);
+        }
+      },
     );
+
+  }
+
+  Future<void> inicio() async {
+
+    Random random = new Random();
+    if (intentosUsados == 0) {
+
+      palabraAdivinar = await p.generarPalabra();
+
+      List<String> aux = [];
+      for (int i = 0; i < palabraAdivinar.length; i++) {
+        aux.add("");
+      }
+      for (int i = 0; i < 2; i++) {
+        int r = random.nextInt(palabraAdivinar.length);
+        aux[r] = palabraAdivinar[r];
+      }
+      bufferLetras.addAll(aux);
+      for (int i = 0; i < palabraAdivinar.length; i++) {
+        bufferColores.add(3);
+      }
+    }
+    stopwatch.start();
+  }
+
+  void intento() {
+    intentosUsados++;
+    if (_inputText.length == palabraAdivinar.length) {
+      print("Palabra introducida: $_inputText");
+      print("Intentos usados: $intentosUsados");
+      List<String> sp = [];
+      sp = _inputText.split("");
+      for (int i = 0; i < sp.length; i++) {
+        print(sp[i]);
+        if (sp[i] == palabraAdivinar[i]) {
+          bufferColores.add(0);
+        } else {
+          if (palabraAdivinar.contains(sp[i])) {
+            bufferColores.add(1);
+          } else {
+            bufferColores.add(2);
+          }
+        }
+      }
+      bufferLetras.addAll(sp);
+    }
+    if (intentosUsados == intentos) {
+      derrota = true;
+    }
+    if (_inputText == palabraAdivinar) {
+      victoria = true;
+    }
+  }
+
+  void calculoTiempo() {
+    elapsedTime = stopwatch.elapsed.inSeconds.toString();
+  }
+
+  void calculoPuntuacion() {
+    int p = (intentosRestantes /
+            stopwatch.elapsed.inSeconds *
+            palabraAdivinar.length *
+            1000)
+        .toInt();
+    puntuacion = p.toString();
   }
 }

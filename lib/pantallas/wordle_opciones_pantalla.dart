@@ -15,6 +15,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
   static const keyLanguage = 'key-language';
   static const keyTemaOscuro = 'key-Tema-Oscuro';
   static const keyLongitud = '4';
+  static const keyIntentos = '4';
   ListaPalabras p = ListaPalabras();
 
   @override
@@ -38,6 +39,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
                 children: <Widget>[
                   buildLanguage(),
                   buildLongitud(),
+                  //buildIntentos(),
                 ],
               ),
               /*   SettingsGroup(
@@ -53,7 +55,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
     );
   }
 
-  Widget buildLanguage() => DropDownSettingsTile(
+    Widget buildLanguage() => DropDownSettingsTile(
         title: 'Idioma de las palabras',
         settingKey: keyLanguage,
         selected: 1,
@@ -87,6 +89,15 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
           prefs.setInt('longitud', value.round());
         },
       );
+  Widget buildIntentos() => TextInputSettingsTile(
+    title: 'Numero de Intentos',
+    settingKey: keyIntentos,initialValue: '4',
+    onChange: (value) async {
+      debugPrint('Se ha cambiado Intentos a: $value');
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt('intentos', int.parse(value));
+    },
+  );
 
   Widget buildTemaOscuro() => SwitchSettingsTile(
         title: 'Tema Oscuro',
