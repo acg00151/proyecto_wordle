@@ -110,6 +110,7 @@ class WordleTema {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Color(0xff6200EE),
       ),
+
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               textStyle: const TextStyle(fontSize: 30),

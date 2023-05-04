@@ -14,8 +14,8 @@ class WordleOpcionesPantalla extends StatefulWidget {
 class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
   static const keyLanguage = 'key-language';
   static const keyTemaOscuro = 'key-Tema-Oscuro';
-  static const keyLongitud = '4';
-  static const keyIntentos = '4';
+  static const keyLongitud = 'key-longitud';
+  static const keyIntentos = 'key-intentos';
   ListaPalabras p = ListaPalabras();
 
   @override
@@ -39,7 +39,7 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
                 children: <Widget>[
                   buildLanguage(),
                   buildLongitud(),
-                  //buildIntentos(),
+                  buildIntentos(),
                 ],
               ),
               /*   SettingsGroup(
@@ -69,9 +69,20 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
           debugPrint('Se ha cambiado el idioma a: $language');
           final prefs = await SharedPreferences.getInstance();
           prefs.setInt('idioma', language);
+          switch (language) {
+            case 0:
+              prefs.setString('idiomaString','ESP');
+              break;
+            case 1:
+              prefs.setString('idiomaString','ING');
+              break;
+            case 2:
+              prefs.setString('idiomaString','ALE');
+              break;
+            case 3:
+              prefs.setString('idiomaString','FRN');
+              break;
 
-          for (int i = 0; i < 10; i++) {
-            debugPrint('Se ha generado la palabra:' + await p.generarPalabra());
           }
         },
       );
@@ -89,13 +100,17 @@ class _WordleOpcionesPantallaState extends State<WordleOpcionesPantalla> {
           prefs.setInt('longitud', value.round());
         },
       );
-  Widget buildIntentos() => TextInputSettingsTile(
+  Widget buildIntentos() => SliderSettingsTile(
     title: 'Numero de Intentos',
-    settingKey: keyIntentos,initialValue: '4',
+    settingKey: keyIntentos,
+    defaultValue: 5,
+    min: 1,
+    max: 10,
+    step: 1,
     onChange: (value) async {
       debugPrint('Se ha cambiado Intentos a: $value');
       final prefs = await SharedPreferences.getInstance();
-      prefs.setInt('intentos', int.parse(value));
+      prefs.setInt('intentos', value.round());
     },
   );
 

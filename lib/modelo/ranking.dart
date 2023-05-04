@@ -7,7 +7,7 @@ class Ranking {
   late List<Puntuacion> puntuaciones = [];
 
   Ranking(){
-    creaRanking();
+   // creaRanking();
   }
 
   Future<void> creaRanking() async {
@@ -21,8 +21,7 @@ class Ranking {
             puntos: int.parse(fuente.elementAt(i).elementAt(0)),
             idioma: fuente.elementAt(i).elementAt(1),
             intentos: int.parse(fuente.elementAt(i).elementAt(2)),
-            pistas: int.parse(fuente.elementAt(i).elementAt(3)),
-            longitud: int.parse(fuente.elementAt(i).elementAt(4))));
+            longitud: int.parse(fuente.elementAt(i).elementAt(3))));
       }
     }
   }

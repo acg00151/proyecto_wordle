@@ -39,7 +39,7 @@ class WordleAyudaPantalla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const List<Color> coloresClaro = [
+    const List<Color> colores = [
       Colors.white,
       Color.fromARGB(255, 3, 218, 198),
       Colors.white,
@@ -47,22 +47,7 @@ class WordleAyudaPantalla extends StatelessWidget {
       Colors.white,
       Colors.grey,
     ];
-    const List<Color> coloresOscuro = [
-      Colors.white,
-      Color.fromARGB(255, 3, 218, 198),
-      Colors.white,
-      //Color.fromARGB(255, 186, 134, 252),
-      Color.fromARGB(255, 186, 134, 0),
-      Colors.white,
-      Colors.grey,
-    ];
 
-    List<Color> colores = [];
-    if(ThemeMode.system == WordleTema.claro()){
-      colores.addAll(coloresClaro);
-    }else {
-      colores.addAll(coloresOscuro);
-    }
 
     /*const String tema = "oscuro";
     List<Color> colores = [];
@@ -124,7 +109,8 @@ class WordleAyudaPantalla extends StatelessWidget {
                           ),
                         ),
                         child: Center(
-                          child: Text(bufferLetras[index]),
+                          child: Text(bufferLetras[index],
+                            style: tittleStyle,),
                         ),
                       ),
                     ),
